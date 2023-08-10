@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('cart', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('restaurant_id')->constrained('restaurants');
-            $table->foreignId('meals_id')->constrained('meals');
-
-            $table->string('order_number')->unique();
-            $table->decimal('total_price');
+            $table->foreignId('meal_id')->constrained('meals');
+            $table->foreignId('order_id')->constrained('orders');
+            $table->unsignedInteger('quantity');
             $table->timestamps();
         });
     }
