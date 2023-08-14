@@ -13,6 +13,7 @@ class CustomTextBox extends StatelessWidget {
     this.isPassword,
     this.icon,
     this.onChanged,
+    this.onTap,
     this.showEyeIcon,
     this.onChangeVisability,
     this.bordered = false,
@@ -34,6 +35,7 @@ class CustomTextBox extends StatelessWidget {
   final bool? bordered;
   final IconData? icon;
   final Function(String)? onChanged;
+  final Function()? onTap;
   final bool? showEyeIcon;
   final VoidCallback? onChangeVisability;
   final String? initialValue;
@@ -62,8 +64,10 @@ class CustomTextBox extends StatelessWidget {
             ),
           if (title != null) const SizedBox(height: 5),
           TextFormField(
+            controller: controller,
             obscureText: isPassword == true,
             onChanged: onChanged,
+            onTap: onTap,
             initialValue: initialValue,
             keyboardType: isNumber == true ? TextInputType.number : null,
             textAlign: textAlign ?? TextAlign.start,

@@ -5,6 +5,8 @@ import 'package:foodapp/GeneralWidgets/AppText.dart';
 import 'package:foodapp/Shared/Fonts/CairoFont.dart';
 import 'package:get/get.dart';
 
+import '../../../../Auth/Signup/View/RestaurantSignupPage.dart';
+
 class SignupBottomSheet extends StatelessWidget {
   const SignupBottomSheet({super.key});
 
@@ -31,7 +33,7 @@ class SignupBottomSheet extends StatelessWidget {
         ListTile(
           title: const AppText("تسجيل مطعم جديد"),
           onTap: () {
-            Get.off(() => const SignupPage());
+            Get.off(() =>  RestaurantSignupPage());
           },
           leading: const Icon(FontAwesomeIcons.utensils),
         ),
