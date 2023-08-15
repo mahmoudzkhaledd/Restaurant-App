@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:foodapp/Features/Auth/ForgotPassword/View/ForgotPasswordPage.dart';
 import 'package:foodapp/GeneralWidgets/CustomButton.dart';
 import 'package:foodapp/GeneralWidgets/CustomTextBox.dart';
 import 'package:foodapp/Shared/Fonts/CairoFont.dart';
+import 'package:get/get.dart';
 
 import '../../../../../GeneralWidgets/AppText.dart';
 
@@ -55,7 +57,9 @@ class LoginBody extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => ForgotPasswordPage());
+              },
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
