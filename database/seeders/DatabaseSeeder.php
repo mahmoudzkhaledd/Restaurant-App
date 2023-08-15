@@ -21,13 +21,16 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        User::create([
-            'name'=>'seif',
-            'email'=>'seiffmohamedd@gmail.com',
-            'email_verified_at' => now(),
-            'password' => 'new', // password
-            'remember_token' => Str::random(10),
 
-        ]);
+        // User::create([
+        //     'name'=>'seifdaddsd',
+        //     'email'=>'scfyvgubhinm@gmail.com',
+        //     'email_verified_at' => now(),
+        //     'password' => 'newnewne', // password
+        //     'remember_token' => Str::random(10),
+
+        // ]);
+
+        $this->call(Admin::class);
     }
 }

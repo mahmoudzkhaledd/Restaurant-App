@@ -17,8 +17,13 @@ return new class extends Migration
             // $table->string('username')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            // $length=strlen('password');
             $table->string('password');
-            // $table->boolean('is_admin')->default(false);
+
+            // if($length>=8){
+            // }
+            // else{abort(404);}
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
