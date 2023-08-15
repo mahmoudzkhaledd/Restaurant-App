@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:foodapp/Features/Auth/ResetPassword/View/PasswordResetPage.dart';
 import 'package:foodapp/GeneralWidgets/AppText.dart';
 import 'package:foodapp/GeneralWidgets/CustomButton.dart';
 import 'package:foodapp/GeneralWidgets/CustomTextBox.dart';
 import 'package:foodapp/Shared/Fonts/CairoFont.dart';
+import 'package:get/get.dart';
 
 class ForgotPasswordBody extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -55,7 +57,9 @@ class ForgotPasswordBody extends StatelessWidget {
             ),
 
             CustomButton(
-              onTap: () {},
+              onTap: () {
+                Get.to(() => PasswordResetPage());
+              },
               text: "التالي",
               verticalPadding: 20,
               icon: Icon(Icons.navigate_next , color: Colors.white,),
