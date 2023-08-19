@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\MealsController;
+use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +27,25 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'admin'])-> as('admin.')->prefix('admin')->group(function() {
     Route::get('/' , [AdminController::class, 'index'])->name('index');
+    Route::resource('/meals',MealsController::class );
 });
+
+// Display the form for creating a new restaurant profile (accessible to authenticated users).
+Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middleware('auth')->name('restaurant.create');
+
+
+Route::post('/restaurant/store', [RestaurantController::class, 'store'])->middleware('auth')->name('restaurant.store');
+
+
+// Handle the submission of the form to create a new restaurant profile.
+// Route::post('/restaurant/store', RestaurantController::class, 'store')->middleware('auth');
+
+// // Display the form for editing an existing restaurant profile (accessible to authenticated users).
+// Route::get('/restaurant/edit/{id}',RestaurantController::class, 'edit')->middleware('auth');
+
+// // Handle the submission of the form to update an existing restaurant profile.
+// Route::put('/restaurant/update/{id}', RestaurantController::class, 'update')->middleware('auth');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

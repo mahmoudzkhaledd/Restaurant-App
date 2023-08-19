@@ -16,11 +16,11 @@ class Admin extends Seeder
     public function run(): void
     {
          User::create([
-            'name'=>'Admin',
-            'email'=>'Admin@gmail.com',
-            'is_admin'=> 1 ,
+            'name'=>'seif',
+            'email'=>'seif@gmail.com',
+            'is_admin'=> 0 ,
             'email_verified_at' => now(),
-            'password' => 'Admin', // password
+            'password' => 'seif', // password
             'remember_token' => Str::random(10),
 
         ]);
