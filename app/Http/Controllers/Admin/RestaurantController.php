@@ -61,8 +61,15 @@ class RestaurantController extends Controller
     }
     
 
-    public function update(){
-        //
-        
+    public function update(Request $request, $id)
+    {
+        // Find the restaurant by ID
+        $restaurant = Restaurant::findOrFail($id);
+    
+        // Validate and update the restaurant data here
+        // ...
+    
+        // Redirect to the restaurant's profile page or another appropriate location
     }
+    
 }
