@@ -37,11 +37,8 @@ Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middl
 Route::post('/restaurant/store', [RestaurantController::class, 'store'])->middleware('auth')->name('restaurant.store');
 
 
-// Handle the submission of the form to create a new restaurant profile.
-// Route::post('/restaurant/store', RestaurantController::class, 'store')->middleware('auth');
-
-// // Display the form for editing an existing restaurant profile (accessible to authenticated users).
-// Route::get('/restaurant/edit/{id}',RestaurantController::class, 'edit')->middleware('auth');
+// Display the form for editing an existing restaurant profile (accessible to authenticated users).
+Route::get('/restaurant/edit/{id}',[RestaurantController::class, 'edit'])->middleware('auth');
 
 // // Handle the submission of the form to update an existing restaurant profile.
 // Route::put('/restaurant/update/{id}', RestaurantController::class, 'update')->middleware('auth');

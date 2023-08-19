@@ -51,10 +51,15 @@ class RestaurantController extends Controller
     }
     
 
-    public function edit(){
-        //
-        
+    public function edit($id)
+    {
+        // Find the restaurant by ID
+        $restaurant = Restaurant::findOrFail($id);
+    
+        // Load the edit profile view with the restaurant data
+        return view('restaurants.edit', compact('restaurant'));
     }
+    
 
     public function update(){
         //
