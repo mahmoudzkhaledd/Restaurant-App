@@ -30,18 +30,15 @@ Route::middleware(['auth', 'admin'])-> as('admin.')->prefix('admin')->group(func
     Route::resource('/meals',MealsController::class );
 });
 
-// Display the form for creating a new restaurant profile (accessible to authenticated users).
 Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middleware('auth')->name('restaurant.create');
 
 
 Route::post('/restaurant/store', [RestaurantController::class, 'store'])->middleware('auth')->name('restaurant.store');
 
 
-// Display the form for editing an existing restaurant profile (accessible to authenticated users).
 Route::get('/restaurant/edit/{id}',[RestaurantController::class, 'edit'])->middleware('auth')->name('restaurant.edit');
 
 
-// // Handle the submission of the form to update an existing restaurant profile.
 // Route::put('/restaurant/update/{id}', RestaurantController::class, 'update')->middleware('auth');
 
 
