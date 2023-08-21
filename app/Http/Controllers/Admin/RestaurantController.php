@@ -57,19 +57,31 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::findOrFail($id);
     
         // Load the edit profile view with the restaurant data
-        return view('restaurants.edit', compact('restaurant'));
+        return view('restaurant.edit', compact('restaurant'));
     }
     
 
     public function update(Request $request, $id)
     {
-        // Find the restaurant by ID
-        $restaurant = Restaurant::findOrFail($id);
+        // Get the authenticated restaurant
+        $restaurant = Restaurant::find(auth()->user()->id);
     
-        // Validate and update the restaurant data here
-        // ...
+        // Validate the form data
+        $request->validate([
+            // Validation rules
+        ]);
     
-        // Redirect to the restaurant's profile page or another appropriate location
+        // Update the restaurant's profile information
+        $restaurant->name = $request->input('name');
+        $restaurant->location = $request->input('location');
+        // ... Update other fields as needed
+    
+        // Save the changes
+        $restaurant->save();
+    
+        // Redirect with a success message
+        return redirect()->route('restaurant.profile')->with('success', 'Profile updated successfully');
     }
+    
     
 }
