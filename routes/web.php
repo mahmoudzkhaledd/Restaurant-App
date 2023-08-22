@@ -39,7 +39,13 @@ Route::post('/restaurant/store', [RestaurantController::class, 'store'])->middle
 Route::get('/restaurant/edit/{id}',[RestaurantController::class, 'edit'])->middleware('auth')->name('restaurant.edit');
 
 
+
 // Route::put('/restaurant/update/{id}', RestaurantController::class, 'update')->middleware('auth');
+
+
+Route::get('/restaurants/{restaurant_id}/menu', [MealsController::class, 'showMenuItems'])->name('restaurant.menu_items');
+
+Route::put('/restaurants/{restaurant_id}/menu/{meal_id}', [MealsController::class, 'updateMenuItem'])->name('restaurant.menu.update');
 
 
 Route::middleware('auth')->group(function () {

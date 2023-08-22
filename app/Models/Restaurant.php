@@ -19,5 +19,11 @@ class Restaurant extends Model
         'password',
     ];
 
+    public function meals()
+{
+    return $this->hasMany(Meal::class);
+}
+
+
     // Add any additional model logic or relationships here
 }
