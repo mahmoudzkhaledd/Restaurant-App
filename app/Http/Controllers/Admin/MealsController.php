@@ -56,6 +56,14 @@ public function updateMenuItem(Request $request, $restaurant_id, $meal_id)
 
 
     public function getMeal(){
+        //NOT IMPLEMENTED YET
+    }
+    public function addMeals(){
+        //NOT IMPLEMENTED YET
+        
+    }
+    public function deleteMeal(){
+        //NOT IMPLEMENTED YET
         
     }
     

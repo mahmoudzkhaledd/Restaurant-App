@@ -9,6 +9,12 @@
                 <p>Price (M): ${{ $menuItem->M_price }}</p>
                 <p>Price (L): ${{ $menuItem->L_price }}</p>
             </li>
+            {{-- {{ $menuItem->image }} --}}
+
+            @if ($menuItem->image)
+                <img src="{{ asset('storage/' . $menuItem->image) }}" alt="{{ $menuItem->name }}">
+            @endif
+        
         @endforeach
     </ul>
 @else
