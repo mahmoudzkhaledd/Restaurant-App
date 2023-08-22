@@ -38,6 +38,7 @@ dependencies:
   shared_preferences:
   font_awesome_flutter:
   get:
+  intl:
   fluentui_system_icons:
   flutter_localizations:
     sdk: flutter
