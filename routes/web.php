@@ -55,7 +55,12 @@ Route::post('/meals', [MealsController::class, 'store'])->middleware('auth')->na
 
 Route::get('/restaurants/{restaurant}/meals/create', [MealsController::class, 'create'])->middleware('auth')->name('meals.create');
 
+//searching era
+//gets all restaurants
+Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurant.index');
 
+Route::get('/restaurants/search', [RestaurantController::class, 'showSearchForm'])->name('restaurant.searchForm');
+Route::post('/restaurants/search', [RestaurantController::class, 'search'])->name('restaurant.search');
 
 
 

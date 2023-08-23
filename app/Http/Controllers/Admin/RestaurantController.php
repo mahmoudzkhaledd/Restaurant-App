@@ -83,5 +83,65 @@ class RestaurantController extends Controller
         return redirect()->route('restaurant.profile')->with('success', 'Profile updated successfully');
     }
     
+    public function search(Request $request)
+{
+    // Retrieve the search criteria from the form
+    $location = $request->input('location');
+    $cuisine = $request->input('cuisine');
+    $minRating = $request->input('rating');
+    $maxPrice = $request->input('L price');
+    $minPrice = $request->input('S price');
+    $ratings = $request->input('rating');
+
+    // Add more criteria as needed
+
+    // Build the query to search for restaurants
+    $query = Restaurant::query();
+
+    if ($location) {
+        $query->where('location', 'like', '%' . $location . '%');
+    }
+
+    if ($cuisine) {
+        $query->where('cuisine_type', 'like', '%' . $cuisine . '%');
+    }
+
+    if ($minRating) {
+        $query->where('rating', '>=', $minRating);
+    }
     
+    if ($maxPrice) {
+        $query->whereBetween('price', [$minPrice, $maxPrice]);
+    }
+    if ($ratings) {
+        $query->where('rating', '>=', $ratings);
+    }
+    
+
+    // Add more query conditions for other criteria (e.g., price range, ratings)
+
+    // Execute the query
+    $restaurants = $query->get();
+
+    // Pass the search results to the view
+    return view('restaurant.index', ['restaurants' => $restaurants]);
+}
+
+
+public function showSearchForm()
+{
+    return view('search');
+}
+
+
+
+public function index()
+{
+    // Retrieve a list of restaurants (you can customize the query as needed)
+    $restaurants = Restaurant::all(); // Assuming you have a "Restaurant" model
+
+    // Pass the restaurants data to the view
+    return view('restaurant.index', ['restaurants' => $restaurants]);
+}
+
 }
