@@ -15,9 +15,9 @@ return new class extends Migration
         $table->id();
         $table->string('name');
         $table->foreignId('restaurant_id')->constrained('restaurants');
-        $table->string('S price');
-        $table->string('M price');
-        $table->string('L price');
+        $table->string('S_price'); // Change 'S price' to 'S_price'
+        $table->string('M_price'); // Change 'M price' to 'M_price'
+        $table->string('L_price'); // Change 'L price' to 'L_price'
         $table->string('rating');
         $table->string('image');
         $table->longText('description');

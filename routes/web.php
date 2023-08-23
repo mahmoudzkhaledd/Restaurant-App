@@ -40,12 +40,25 @@ Route::get('/restaurant/edit/{id}',[RestaurantController::class, 'edit'])->middl
 
 
 
+
+
 // Route::put('/restaurant/update/{id}', RestaurantController::class, 'update')->middleware('auth');
 
 
-Route::get('/restaurants/{restaurant_id}/menu', [MealsController::class, 'showMenuItems'])->name('restaurant.menu_items');
+Route::get('/restaurants/{restaurant_id}/menu', [MealsController::class, 'showMenuItems'])->middleware('auth')->name('restaurant.menu_items');
 
-Route::put('/restaurants/{restaurant_id}/menu/{meal_id}', [MealsController::class, 'updateMenuItem'])->name('restaurant.menu.update');
+Route::put('/restaurants/{restaurant_id}/menu/{meal_id}', [MealsController::class, 'updateMenuItem'])->middleware('auth')->name('restaurant.menu.update');
+
+Route::get('/restaurants/{restaurantId}/meals', [MealsController::class, 'index'])->middleware('auth')->name('meals.index');
+
+Route::post('/meals', [MealsController::class, 'store'])->middleware('auth')->name('meals.store');
+
+Route::get('/restaurants/{restaurant}/meals/create', [MealsController::class, 'create'])->name('meals.create');
+
+
+
+
+
 
 
 Route::middleware('auth')->group(function () {

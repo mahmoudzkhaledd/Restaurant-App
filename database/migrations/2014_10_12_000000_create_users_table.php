@@ -23,6 +23,8 @@ return new class extends Migration
             // if($length>=8){
             // }
             // else{abort(404);}
+
+            
             $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();

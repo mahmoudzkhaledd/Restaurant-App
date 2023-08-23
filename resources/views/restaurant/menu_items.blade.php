@@ -12,7 +12,8 @@
             {{-- {{ $menuItem->image }} --}}
 
             @if ($menuItem->image)
-                <img src="{{ asset('storage/' . $menuItem->image) }}" alt="{{ $menuItem->name }}">
+             <img src="{{ asset('storage/' . $menuItem->image) }}" alt="{{ $menuItem->name }}">
+
             @endif
         
         @endforeach

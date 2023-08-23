@@ -18,23 +18,24 @@ class Admin extends Seeder
     public function run(): void
     {
         //  User::create([
-        //     'name'=>'test',
-        //     'email'=>'test@gmail.com',
+        //     'name'=>'seif',
+        //     'email'=>'seif@gmail.com',
         //     'is_admin'=> 0 ,
         //     'email_verified_at' => now(),
-        //     'password' => 'test', // password
+        //     'password' => 'seif', // password
         //     'remember_token' => Str::random(10),
 
         // ]);
 
         Meal::create([
-            'name'=>'Smash Burger',
+            'name'=>'Normal Burger',
             'restaurant_id'=>'1',
-            'S price'=>'70',
-            'M price'=>'80',
-            'L price'=>'100',
-            'rating'=>'10',
-            'description'=>"very good",
+            'S_price'=>'60',
+            'M_price'=>'70',
+            'L_price'=>'90',
+            'rating'=>'9',
+            'image'=>'bimg.jpg',
+            'description'=>"gooood",
         ]);
     }
 }
