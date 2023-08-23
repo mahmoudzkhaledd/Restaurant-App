@@ -53,7 +53,7 @@ Route::get('/restaurants/{restaurantId}/meals', [MealsController::class, 'index'
 
 Route::post('/meals', [MealsController::class, 'store'])->middleware('auth')->name('meals.store');
 
-Route::get('/restaurants/{restaurant}/meals/create', [MealsController::class, 'create'])->name('meals.create');
+Route::get('/restaurants/{restaurant}/meals/create', [MealsController::class, 'create'])->middleware('auth')->name('meals.create');
 
 
 
