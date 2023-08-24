@@ -30,13 +30,11 @@ Route::middleware(['auth', 'admin'])-> as('admin.')->prefix('admin')->group(func
     Route::resource('/meals',MealsController::class );
 });
 
-Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middleware('auth')->name('restaurant.create');
+Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middleware(['auth', 'admin'])->name('restaurant.create');
 
+Route::post('/restaurant/store', [RestaurantController::class, 'store'])->middleware(['auth', 'admin'])->name('restaurant.store');
 
-Route::post('/restaurant/store', [RestaurantController::class, 'store'])->middleware('auth')->name('restaurant.store');
-
-
-Route::get('/restaurant/edit/{id}',[RestaurantController::class, 'edit'])->middleware('auth')->name('restaurant.edit');
+Route::get('/restaurant/edit/{id}', [RestaurantController::class, 'edit'])->middleware(['auth', 'admin'])->name('restaurant.edit');
 
 
 
@@ -47,13 +45,23 @@ Route::get('/restaurant/edit/{id}',[RestaurantController::class, 'edit'])->middl
 
 Route::get('/restaurants/{restaurant_id}/menu', [MealsController::class, 'showMenuItems'])->middleware('auth')->name('restaurant.menu_items');
 
-Route::put('/restaurants/{restaurant_id}/menu/{meal_id}', [MealsController::class, 'updateMenuItem'])->middleware('auth')->name('restaurant.menu.update');
 
-Route::get('/restaurants/{restaurantId}/meals', [MealsController::class, 'index'])->middleware('auth')->name('meals.index');
 
-Route::post('/meals', [MealsController::class, 'store'])->middleware('auth')->name('meals.store');
+Route::put('/restaurants/{restaurant_id}/menu/{meal_id}', [MealsController::class, 'updateMenuItem'])
+    ->middleware(['auth', 'is_admin'])
+    ->name('restaurant.menu.update');
 
-Route::get('/restaurants/{restaurant}/meals/create', [MealsController::class, 'create'])->middleware('auth')->name('meals.create');
+Route::get('/restaurants/{restaurantId}/meals', [MealsController::class, 'index'])
+    ->middleware(['auth', 'is_admin'])
+    ->name('meals.index');
+
+Route::post('/meals', [MealsController::class, 'store'])
+    ->middleware(['auth', 'is_admin'])
+    ->name('meals.store');
+
+Route::get('/restaurants/{restaurant}/meals/create', [MealsController::class, 'create'])
+    ->middleware(['auth', 'is_admin'])
+    ->name('meals.create');
 
 //searching era
 //gets all restaurants
