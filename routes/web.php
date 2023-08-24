@@ -42,36 +42,54 @@ Route::get('/restaurant/edit/{id}', [RestaurantController::class, 'edit'])->midd
 
 // Route::put('/restaurant/update/{id}', RestaurantController::class, 'update')->middleware('auth');
 
+//get menu of restaurant with all its meals
+// Route::get('/restaurants/{restaurant_id}/menu', [MealsController::class, 'showMenuItems'])->middleware('auth')->name('restaurant.menu_items');
+
+
+
+
+
+
+Route::get('/restaurants/{restaurant_id}/menu/{meal_id}/edit', [MealsController::class, 'edit'])
+    ->middleware(['auth', 'admin'])
+    ->name('meals.edit');
+
+Route::put('/restaurants/{restaurant_id}/menu/{meal_id}', [MealsController::class, 'updateMenuItem'])
+->middleware(['auth', 'admin'])
+->name('restaurant.menu.update');
+
+
 
 Route::get('/restaurants/{restaurant_id}/menu', [MealsController::class, 'showMenuItems'])->middleware('auth')->name('restaurant.menu_items');
 
 
+// Route::get('/restaurants/{restaurantId}/meals', [MealsController::class, 'index'])
+//     ->middleware(['auth', 'admin'])
+//     ->name('meals.index');
 
-Route::put('/restaurants/{restaurant_id}/menu/{meal_id}', [MealsController::class, 'updateMenuItem'])
-    ->middleware(['auth', 'is_admin'])
-    ->name('restaurant.menu.update');
 
-Route::get('/restaurants/{restaurantId}/meals', [MealsController::class, 'index'])
-    ->middleware(['auth', 'is_admin'])
-    ->name('meals.index');
 
+
+//create new meal
 Route::post('/meals', [MealsController::class, 'store'])
-    ->middleware(['auth', 'is_admin'])
+    ->middleware(['auth', 'admin'])
     ->name('meals.store');
 
 Route::get('/restaurants/{restaurant}/meals/create', [MealsController::class, 'create'])
-    ->middleware(['auth', 'is_admin'])
+    ->middleware(['auth', 'admin'])
     ->name('meals.create');
+
+
 
 //searching era
 //gets all restaurants
-Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurant.index');
 
 Route::get('/restaurants/search', [RestaurantController::class, 'showSearchForm'])->name('restaurant.searchForm');
 Route::post('/restaurants/search', [RestaurantController::class, 'search'])->name('restaurant.search');
 
 
-
+//get all restaurants
+Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurant.index');
 
 
 Route::middleware('auth')->group(function () {

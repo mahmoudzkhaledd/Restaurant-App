@@ -37,7 +37,11 @@
                 <option value="1">1 Star</option>
             </select>
         </div>
-
+        <div> 
+            <label for="delivery">Delivery Option:</label>
+            <input type="checkbox" name="delivery" id="delivery">
+        </div>
+        
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>

@@ -32,31 +32,47 @@ public function showMenuItems($restaurant_id)
 
 public function updateMenuItem(Request $request, $restaurant_id, $meal_id)
 {
-    // Find the restaurant
-    $restaurant = Restaurant::find($restaurant_id);
+    // Validate and update the meal item with the given $meal_id
+    // You can use the $request to get the updated data
 
-    // Find the menu item within the restaurant
-    $menuItem = $restaurant->meals()->find($meal_id);
-
-    if (!$menuItem) {
-        // Handle not found case, return a response or redirect as needed
+    // Example update logic:
+    $meal = Meal::find($meal_id);
+    
+    if (!$meal) {
+        return redirect()->route('meals.index')->with('error', 'Meal not found.');
     }
 
-    // Update menu item details based on the request data
-    $menuItem->name = $request->input('name');
-    $menuItem->description = $request->input('description');
-    $menuItem->S_price = $request->input('S_price');
-    $menuItem->M_price = $request->input('M_price');
-    $menuItem->L_price = $request->input('L_price');
-    // Update other menu item details as needed
-  // Update the image path
-  $meal = Meal::find($meal_id); // Retrieve the meal record by ID
-  $meal->image = 'meals/bimg.jpg'; // Update the image path
-  $meal->save(); // Save the changes
-    $menuItem->save();
+    // Update the meal's attributes based on the request data
+    $meal->name = $request->input('name');
+    $meal->description = $request->input('description');
+    $meal->S_price = $request->input('S_price');
+    $meal->M_price = $request->input('M_price');
+    $meal->L_price = $request->input('L_price');
+    $meal->rating = $request->input('rating');
 
-    // Redirect back to the menu items page with a success message
-    return redirect()->route('restaurant.menu', $restaurant->id)->with('success', 'Menu item updated successfully.');
+    // Save the updated meal
+    $meal->save();
+
+    return redirect()->route('meals.index')->with('success', 'Meal updated successfully.');
+}
+
+
+public function edit($restaurant_id, $meal_id)
+{
+    // Assuming you have a Restaurant model and Meal model imported at the top
+    // Find the restaurant by its ID to check for authorization, if needed
+    $restaurant = Restaurant::findOrFail($restaurant_id);
+
+    // Find the meal to edit
+    $meal = Meal::findOrFail($meal_id);
+
+    // You can add an authorization check here if only certain users should edit meals
+
+    // Load the edit view with the meal data
+    return view('meals.edit', [
+        'restaurant' => $restaurant,
+        'meal' => $meal,
+    ]);
 }
 
 

@@ -15,6 +15,9 @@
              <img src="{{ asset('storage/' . $menuItem->image) }}" alt="{{ $menuItem->name }}">
 
             @endif
+
+            <a href="{{ route('meals.edit', ['restaurant_id' => $restaurant->id, 'meal_id' => $menuItem->id]) }}">Edit Meal</a>
+
         
         @endforeach
     </ul>

@@ -116,6 +116,10 @@ class RestaurantController extends Controller
     if ($ratings) {
         $query->where('rating', '>=', $ratings);
     }
+
+    if ($request->has('delivery')) {
+        $query->where('delivery', true);
+    }
     
 
     // Add more query conditions for other criteria (e.g., price range, ratings)
