@@ -16,6 +16,7 @@ class AppText extends StatelessWidget {
     this.textAlign,
     this.textScaleFactor,
     this.language,
+    this.maxLines, this.overFlow,
   });
 
   static String arabicFont = "";
@@ -26,14 +27,17 @@ class AppText extends StatelessWidget {
   final double? textScaleFactor;
   final TextStyle? style;
   final TextAlign? textAlign;
-
+  final int? maxLines;
+  final TextOverflow? overFlow;
   @override
   Widget build(BuildContext context) {
     TextLanguage lang = language ?? defaultLanguage;
     return Text(
       text,
+      overflow: overFlow,
       textAlign: textAlign,
       textScaleFactor: textScaleFactor,
+      maxLines: maxLines,
       style: style == null
           ? TextStyle(
               fontFamily:

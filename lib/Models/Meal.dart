@@ -23,7 +23,7 @@ class Meal {
   MealSize size = MealSize.small;
   List<Ingrediant> ingrediants = [];
   bool initilized = false;
-
+  List<String> photos = [];
   Meal() {
     initilized = true;
   }
@@ -61,6 +61,7 @@ class Meal {
         "size": size.toString().split('.')[1],
         'hours': time.hours,
         "minutes": time.minutes,
+        "photos": photos,
       };
 
   Meal.fromJson(Map<String, dynamic> json) {
@@ -75,10 +76,11 @@ class Meal {
     feature = json['feature'];
     maxNumber = json['maxNumber'];
     initilized = true;
-    smallPrice = json['smallPrice']*1.0;
-    mediumPrice = json['mediumPrice'] *1.0;
-    largePrice = json['largePrice']*1.0;
+    smallPrice = json['smallPrice'] * 1.0;
+    mediumPrice = json['mediumPrice'] * 1.0;
+    largePrice = json['largePrice'] * 1.0;
     category = json['category'];
+    photos = json['photos'];
     time = MealTime(hours: json['hours'], minutes: json['minutes']);
 
     size = json['size'] == "small"
@@ -105,7 +107,7 @@ class Ingrediant {
   double price = 0;
   int maxNumber = 0;
   int numberNeeded = 0;
-  int initialNumber = 0;
+  int currentNumber = 0;
 
   double get totalPrice => numberNeeded * price;
 
@@ -114,9 +116,9 @@ class Ingrediant {
     required this.name,
     required this.maxNumber,
     required this.price,
-    required this.initialNumber,
+    required this.currentNumber,
   }) {
-    numberNeeded = initialNumber;
+    numberNeeded = currentNumber;
   }
 
   Map<String, dynamic> toJson() => {

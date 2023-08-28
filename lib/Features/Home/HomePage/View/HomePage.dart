@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:foodapp/Features/Home/CartPage/views/CartPage.dart';
+import 'package:foodapp/Features/Meal/MealPage/Views/MealPage.dart';
 import 'package:foodapp/GeneralWidgets/AppText.dart';
+import 'package:foodapp/Helper/Helper.dart';
+import 'package:foodapp/Models/Cart.dart';
+import 'package:foodapp/Shared/FakeApi.dart';
 import 'package:foodapp/Shared/Fonts/CairoFont.dart';
+import 'package:get/get.dart';
 
 import '../../../../Models/Category.dart';
 import '../Widgets/CategoriesWidget.dart';
@@ -30,7 +36,14 @@ class HomePage extends StatelessWidget {
               child: Icon(Icons.shopping_cart),
             ),
             iconSize: 24,
-            onPressed: () {},
+            onPressed: () {
+              Helper.showBottomSheetWidget(
+                CartPage(
+                  canEdit: true,
+                  cart: Cart(),
+                ),
+              );
+            },
           ),
           const SizedBox(width: 20),
         ],
@@ -96,8 +109,10 @@ class HomePage extends StatelessWidget {
                     SizedBox(
                       height: 250,
                       child: PopularMealsWidget(
-                        onTapMeal: (e) {},
-                        meals: [],
+                        onTapMeal: (e) {
+                          Get.to(() => MealPage(meal: e, order: null));
+                        },
+                        meals: FakeApi.getMeals(),
                       ),
                     ),
                     const SizedBox(height: 20),

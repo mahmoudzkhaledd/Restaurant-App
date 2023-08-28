@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:foodapp/Features/Auth/EmailVerification/View/EmailVerificationPage.dart';
+import 'package:foodapp/Features/StartingFeatures/Splash/View/SplashPage.dart';
 import 'package:foodapp/GeneralWidgets/AppText.dart';
 import 'package:foodapp/Shared/Cubit/AppCubit.dart';
+import 'package:foodapp/Shared/FakeApi.dart';
 import 'package:foodapp/Shared/Fonts/CairoFont.dart';
 import 'package:foodapp/Shared/Fonts/RalewayFont.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'Features/Home/HomePage/View/HomePage.dart';
-
+import 'Features/Meal/RegularMealPage/View/RegularMealPage.dart';
 
 void main() {
   AppText.arabicFont = CairoFont.cairoRegular;
@@ -42,7 +45,7 @@ class FoodApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: HomePage(),
+        home: RegularMealPage(meal: FakeApi.getMeals()[1]),
       ),
     );
   }

@@ -119,7 +119,7 @@ class Helper {
           DraggableScrollableSheet(
             expand: false,
             maxChildSize: 0.9,
-            initialChildSize: 0.3,
+            initialChildSize: 0.577,
             builder: (ctx, ctrl) => SingleChildScrollView(
               controller: ctrl,
               child: child,

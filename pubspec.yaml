@@ -40,6 +40,7 @@ dependencies:
   get:
   pin_code_fields:
   intl:
+  flutter_slidable:
   fluentui_system_icons:
   flutter_localizations:
     sdk: flutter

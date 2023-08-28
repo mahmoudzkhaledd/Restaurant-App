@@ -1,4 +1,3 @@
-
 import 'Meal.dart';
 
 class Order {
@@ -35,7 +34,7 @@ class Order {
         'mealPhotoUrl': meal.photoUrl,
         'mealName': meal.name,
         'ingrediants': meal.ingrediants
-            .where((element) => element.numberNeeded == element.initialNumber)
+            .where((element) => element.numberNeeded == element.currentNumber)
             .map<Map<String, dynamic>>((e) => e.toJson()),
       };
 }
