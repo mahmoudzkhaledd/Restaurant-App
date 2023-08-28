@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -6,6 +7,29 @@ import 'package:get/get.dart';
 import '../GeneralWidgets/AppText.dart';
 
 class Helper {
+  static Widget loadingWidget() => const Center(
+        child: CircularProgressIndicator(),
+      );
+  static Widget loadNetworkImage(String url, String assetsErrorPath,
+      [BoxFit fit = BoxFit.cover]) {
+    if (url.isNotEmpty) {
+      bool validUrl = Uri.parse(url).isAbsolute;
+      if (validUrl) {
+        return CachedNetworkImage(
+          imageUrl: url,
+          fit: fit,
+          placeholder: (ctx, str) => Helper.loadingWidget(),
+          errorWidget: (ctx, str, obj) =>
+              Image.asset("assets/images/$assetsErrorPath"),
+        );
+      } else {
+        return Image.asset("assets/images/$assetsErrorPath");
+      }
+    } else {
+      return Image.asset("assets/images/$assetsErrorPath");
+    }
+  }
+
   static FutureOr<T> showLoading<T>(
     String title,
     String content,

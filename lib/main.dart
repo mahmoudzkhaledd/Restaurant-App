@@ -7,7 +7,8 @@ import 'package:foodapp/Shared/Fonts/CairoFont.dart';
 import 'package:foodapp/Shared/Fonts/RalewayFont.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-import 'Features/StartingFeatures/Splash/View/SplashPage.dart';
+import 'Features/Home/HomePage/View/HomePage.dart';
+
 
 void main() {
   AppText.arabicFont = CairoFont.cairoRegular;
@@ -41,7 +42,7 @@ class FoodApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: const SplashPage(),
+        home: HomePage(),
       ),
     );
   }

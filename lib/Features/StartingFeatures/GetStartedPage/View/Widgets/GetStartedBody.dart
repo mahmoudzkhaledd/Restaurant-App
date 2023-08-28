@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodapp/Features/Auth/Login/View/LoginPage.dart';
-import 'package:foodapp/Features/Auth/Signup/View/SignupPage.dart';
 import 'package:foodapp/GeneralWidgets/AppText.dart';
 import 'package:foodapp/GeneralWidgets/CustomButton.dart';
 import 'package:foodapp/Helper/Helper.dart';
