@@ -21,8 +21,10 @@
         <br>
         @endforeach
     </ul>
-    <a href="{{ route('meals.create', ['restaurantId' => $restaurantId]) }}" class="btn btn-primary">Add Item</a>
+    <a href="{{ route('meals.create', ['restaurant' => $restaurantId]) }}">Add Meal</a>
+
     @else
+    
     <p>No meals available for this rest</p>
     @endif
 </div>

@@ -53,11 +53,12 @@ public function updateMenuItem(Request $request, $restaurant_id, $meal_id)
     // Save the updated meal
     $meal->save();
 
-    return redirect()->route('meals.index')->with('success', 'Meal updated successfully.');
+    return redirect()->route('meals.index', ['restaurantId' => $restaurant_id])->with('success', 'Meal updated successfully.');
+
 }
 
 
-public function edit($restaurant_id, $meal_id)
+public function edit($meal_id, $restaurant_id)
 {
     // Assuming you have a Restaurant model and Meal model imported at the top
     // Find the restaurant by its ID to check for authorization, if needed

@@ -52,12 +52,16 @@ Route::get('/restaurant/edit/{id}', [RestaurantController::class, 'edit'])->midd
 
 Route::get('/restaurants/{restaurant_id}/menu/{meal_id}/edit', [MealsController::class, 'edit'])
     ->middleware(['auth', 'admin'])
-    ->name('meals.edit');
+    ->name('restaurant.menu.update');
 
 Route::put('/restaurants/{restaurant_id}/menu/{meal_id}', [MealsController::class, 'updateMenuItem'])
 ->middleware(['auth', 'admin'])
 ->name('restaurant.menu.update');
 
+// Route::get('/meals', [MealsController::class, 'index'])->name('meals.index');
+
+
+Route::get('/restaurants/{restaurantId}/meals', [MealsController::class, 'index'])->middleware('auth')->name('meals.index');
 
 
 Route::get('/restaurants/{restaurant_id}/menu', [MealsController::class, 'showMenuItems'])->middleware('auth')->name('restaurant.menu_items');
