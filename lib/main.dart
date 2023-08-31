@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:foodapp/Features/Restaurant/restaurant_screen.dart';
 import 'package:foodapp/GeneralWidgets/AppText.dart';
 import 'package:foodapp/Shared/Fonts/CairoFont.dart';
 import 'package:foodapp/Shared/Fonts/RalewayFont.dart';
@@ -38,7 +39,7 @@ class FoodApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: RestaurantScreenn(),
     );
   }
 }
