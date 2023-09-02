@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:foodapp/Features/Cart/View/CartPage.dart';
 import 'package:foodapp/GeneralWidgets/AppText.dart';
 import 'package:foodapp/Shared/Fonts/CairoFont.dart';
-
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../../Models/Category.dart';
 import '../Widgets/CategoriesWidget.dart';
 import '../Widgets/HomePageDrawer.dart';
@@ -30,7 +32,9 @@ class HomePage extends StatelessWidget {
               child: Icon(Icons.shopping_cart),
             ),
             iconSize: 24,
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => CartPage());
+            },
           ),
           const SizedBox(width: 20),
         ],

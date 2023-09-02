@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:foodapp/Features/Restaurant/restaurant_screen.dart';
 import 'package:foodapp/GeneralWidgets/AppText.dart';
+import 'package:foodapp/Shared/Cubit/AppCubit.dart';
 import 'package:foodapp/Shared/Fonts/CairoFont.dart';
 import 'package:foodapp/Shared/Fonts/RalewayFont.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -20,26 +22,29 @@ class FoodApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      locale: const Locale('ar'),
-      localizationsDelegates: const [
-        GlobalCupertinoLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale("ar"),
-      ],
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          elevation: 0,
+    return BlocProvider(
+      create: (context) => AppCubit(),
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        locale: const Locale('ar'),
+        localizationsDelegates: const [
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale("ar"),
+        ],
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            elevation: 0,
+          ),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
+        home: HomePage(),
       ),
-      home: RestaurantScreenn(),
     );
   }
 }
