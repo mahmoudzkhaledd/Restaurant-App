@@ -141,11 +141,22 @@ public function showSearchForm()
 
 public function index()
 {
-    // Retrieve a list of restaurants (you can customize the query as needed)
-    $restaurants = Restaurant::all(); // Assuming you have a "Restaurant" model
+    $restaurants = Restaurant::all(); 
 
-    // Pass the restaurants data to the view
-    return view('restaurant.index', ['restaurants' => $restaurants]);
+    return ['restaurants' => $restaurants  ];
+
+    // $new_rest = array_map(function($value) {
+
+    //     return [
+    //         'name' => $value['name'],
+    //         'description' => $value['description'],
+    //         'location' => $value['location'],
+    //         'cusine_type'=>$value['cusine_type'],
+    //         'contact'
+
+    //     ];
+
+    // }, $restaurants);
 }
 
 }

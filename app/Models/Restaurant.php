@@ -19,6 +19,9 @@ class Restaurant extends Model
         'password',
     ];
 
+    protected $hidden = ['password','OTP'];
+
+
     public function meals()
 {
     return $this->hasMany(Meal::class);
