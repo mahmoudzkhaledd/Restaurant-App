@@ -58,9 +58,8 @@ public function updateMenuItem(Request $request, $restaurant_id, $meal_id)
 }
 
 
-public function edit($meal_id, $restaurant_id)
+public function edit($restaurant_id, $meal_id)
 {
-    // Assuming you have a Restaurant model and Meal model imported at the top
     // Find the restaurant by its ID to check for authorization, if needed
     $restaurant = Restaurant::findOrFail($restaurant_id);
 
@@ -75,6 +74,7 @@ public function edit($meal_id, $restaurant_id)
         'meal' => $meal,
     ]);
 }
+
 
 
 //dah hy show el meals kollaha

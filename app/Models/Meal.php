@@ -10,6 +10,7 @@ class Meal extends Model
     use HasFactory;
     public $timestamps = false;
 
+    protected $primaryKey = 'id'; // Ensure that 'id' is the correct primary key column
     protected $fillable = [
         'name',
         'restaurant_id',

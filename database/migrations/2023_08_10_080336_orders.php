@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('restaurant_id')->constrained('restaurants');
-            $table->foreignId('meals_id')->constrained('meals');
-
-            $table->string('order_number')->unique();
-            $table->decimal('total_price');
+            $table->unsignedBigInteger('cart_id'); // Foreign key linking to carts
+            $table->enum('status', ['pending', 'completed'])->default('pending'); // Order status
+            $table->decimal('total_price', 8, 2);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('orders');
     }
 };

@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cart', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('meal_id')->constrained('meals');
-            $table->foreignId('order_id')->constrained('orders');
-            $table->unsignedInteger('quantity');
+            $table->unsignedBigInteger('user_id'); // Foreign key linking to users
+            $table->json('meal_items')->nullable(); // JSON field to hold meal IDs and names
             $table->timestamps();
         });
     }
@@ -26,5 +25,6 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::dropIfExists('carts');
     }
 };

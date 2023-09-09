@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\MealsController;
 use App\Http\Controllers\Admin\RestaurantController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -63,8 +64,8 @@ Route::put('/restaurants/{restaurant_id}/menu/{meal_id}', [MealsController::clas
 
 Route::get('/restaurants/{restaurantId}/meals', [MealsController::class, 'index'])->middleware('auth')->name('meals.index');
 
-
-Route::get('/restaurants/{restaurant_id}/menu', [MealsController::class, 'showMenuItems'])->middleware('auth')->name('restaurant.menu_items');
+//dah howa howa el meals bta3t specific rest
+// Route::get('/restaurants/{restaurant_id}/menu', [MealsController::class, 'showMenuItems'])->middleware('auth')->name('restaurant.menu_items');
 
 
 // Route::get('/restaurants/{restaurantId}/meals', [MealsController::class, 'index'])
@@ -94,6 +95,15 @@ Route::post('/restaurants/search', [RestaurantController::class, 'search'])->nam
 
 //get all restaurants
 Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurant.index');
+
+
+//place orders
+Route::get('/restaurants/{restaurant_id}/menu',[OrderController::class, 'showMenu'])->name('menu.show');
+Route::post('/restaurants/{restaurant_id}/menu', [OrderController::class, 'addToCart'])->name('menu.add-to-cart');
+Route::get('/cart', [OrderController::class, 'showCart'])->name('cart.show');
+Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
+Route::post('/cart/add/{meal}', [OrderController::class, 'addToCart'])->name('cart.add');
+
 
 
 Route::middleware('auth')->group(function () {
