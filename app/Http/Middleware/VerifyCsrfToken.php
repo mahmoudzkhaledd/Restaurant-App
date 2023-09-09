@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        '/restaurants/search/found',
+        // Add other routes as needed
     ];
 }

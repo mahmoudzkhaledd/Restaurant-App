@@ -18,18 +18,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'admin'])-> as('admin.')->prefix('admin')->group(function() {
-    Route::get('/' , [AdminController::class, 'index'])->name('index');
-    Route::resource('/meals',MealsController::class );
-});
+// Route::middleware(['auth', 'admin'])-> as('admin.')->prefix('admin')->group(function() {
+//     Route::get('/' , [AdminController::class, 'index'])->name('index');
+//     Route::resource('/meals',MealsController::class );
+// });
+
+
 
 Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middleware(['auth', 'admin'])->name('restaurant.create');
 
@@ -88,12 +90,13 @@ Route::get('/restaurants/{restaurant}/meals/create', [MealsController::class, 'c
 
 //searching era
 //gets all restaurants
-
+//DONE
 Route::get('/restaurants/search', [RestaurantController::class, 'showSearchForm'])->name('restaurant.searchForm');
-Route::post('/restaurants/search', [RestaurantController::class, 'search'])->name('restaurant.search');
+Route::post('/restaurants/search/found', [RestaurantController::class, 'search'])->name('restaurant.search');
 
 
 //get all restaurants
+//DONE
 Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurant.index');
 
 

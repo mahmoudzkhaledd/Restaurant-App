@@ -19,6 +19,11 @@ class Restaurant extends Model
         'password',
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     public function meals()
 {
     return $this->hasMany(Meal::class);

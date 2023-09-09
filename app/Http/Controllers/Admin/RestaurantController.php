@@ -12,6 +12,18 @@ use App\Models\Restaurant;
 
 class RestaurantController extends Controller
 {
+    
+    public function __construct(){
+        $this->middleware('auth:api' , [
+           'except' => [
+               'index', 
+            // 'search',
+            // 'showSearchForm'
+            'store'
+           ]
+           ]);
+   }
+
     public function create(){
         return view('restaurant.create');
     }
@@ -19,36 +31,44 @@ class RestaurantController extends Controller
     
     public function store(Request $request)
     {
-        // Validate the image upload
+        // 1. Receive JSON Request (Make sure you're sending the request as JSON)
+        // 2. Parse JSON and Validate
+        // $requestData = $request->json()->all();
+    
+        $requestData = $request->json()->all();
+        // dd($requestData); 
+
+        // Example validation for required fields
         $request->validate([
-            'logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Example validation for image file
-            // Add validation rules for other form fields here
+            'name' => 'required',
+            'location' => 'required',
+            'description' => 'required',
+            'rating' => 'required|numeric',
+            'contact_details' => 'required',
+            'cuisine_type' => 'required',
+            'email' => 'required|email|unique:restaurants',
+            'password' => 'required',
         ]);
     
-        // Handle the image upload
-        if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('restaurant_logos', 'public');
+        // 3. Handle Image Upload (if included in the JSON request)
+        // 4. Create Restaurant
+        $restaurant = new Restaurant();
+        $restaurant->logo = $requestData['logo'] ?? null;
+        $restaurant->name = $requestData['name'];
+        $restaurant->location = $requestData['location'];
+        $restaurant->description = $requestData['description'];
+        $restaurant->rating = $requestData['rating'];
+        $restaurant->contact_details = $requestData['contact_details'];
+        $restaurant->cuisine_type = $requestData['cuisine_type'];
+        $restaurant->email = $requestData['email'];
+        $restaurant->password = bcrypt($requestData['password']);
     
-            // Create a new restaurant record with the file path in the 'logo' column
-            $restaurant = new Restaurant();
-            $restaurant->logo = $logoPath;
-    
-            // Set other restaurant data from the form
-            $restaurant->name = $request->input('name');
-            $restaurant->location = $request->input('location');
-            $restaurant->description = $request->input('description');
-            $restaurant->rating = $request->input('rating');
-            $restaurant->contact_details = $request->input('contact_details');
-            $restaurant->cuisine_type = $request->input('cuisine_type');
-            $restaurant->email = $request->input('email');
-            $restaurant->password = bcrypt($request->input('password'));
-    
-            // Save the restaurant record to the database
-            $restaurant->save();
-        }
-    
-        // Redirect or return a response to indicate successful creation
+        // 5. Save Restaurant and Return JSON Response
+        $restaurant->save();
+        
+        return response()->json(['status' => 'success'], 200);
     }
+    
     
 
     public function edit($id)
@@ -84,53 +104,27 @@ class RestaurantController extends Controller
     }
     
     public function search(Request $request)
-{
-    // Retrieve the search criteria from the form
-    $location = $request->input('location');
-    $cuisine = $request->input('cuisine');
-    $minRating = $request->input('rating');
-    $maxPrice = $request->input('L price');
-    $minPrice = $request->input('S price');
-    $ratings = $request->input('rating');
-
-    // Add more criteria as needed
-
-    // Build the query to search for restaurants
-    $query = Restaurant::query();
-
-    if ($location) {
-        $query->where('location', 'like', '%' . $location . '%');
-    }
-
-    if ($cuisine) {
-        $query->where('cuisine_type', 'like', '%' . $cuisine . '%');
-    }
-
-    if ($minRating) {
-        $query->where('rating', '>=', $minRating);
+    {
+        // Retrieve the search criteria from the JSON request
+        $requestData = $request->json()->all();
+        $location = $requestData['location'];
+    
+        // Build the query to search for restaurants
+        $query = Restaurant::query();
+    
+        if ($location) {
+            $query->where('location', 'like', '%' . $location . '%');
+        }
+    
+        // Add more query conditions for other criteria (e.g., price range, ratings)
+    
+        // Execute the query
+        $restaurants = $query->get();
+    
+        // Return the search results as JSON
+        return response()->json(['restaurants' => $restaurants]);
     }
     
-    if ($maxPrice) {
-        $query->whereBetween('price', [$minPrice, $maxPrice]);
-    }
-    if ($ratings) {
-        $query->where('rating', '>=', $ratings);
-    }
-
-    if ($request->has('delivery')) {
-        $query->where('delivery', true);
-    }
-    
-
-    // Add more query conditions for other criteria (e.g., price range, ratings)
-
-    // Execute the query
-    $restaurants = $query->get();
-
-    // Pass the search results to the view
-    return view('restaurant.index', ['restaurants' => $restaurants]);
-}
-
 
 public function showSearchForm()
 {
@@ -141,11 +135,9 @@ public function showSearchForm()
 
 public function index()
 {
-    // Retrieve a list of restaurants (you can customize the query as needed)
     $restaurants = Restaurant::all(); // Assuming you have a "Restaurant" model
 
-    // Pass the restaurants data to the view
-    return view('restaurant.index', ['restaurants' => $restaurants]);
+    return ['restaurants' => $restaurants];
 }
 
 }
