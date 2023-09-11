@@ -13,6 +13,16 @@ use function Laravel\Prompts\text;
 class MealsController extends Controller
 {
 
+    public function __construct(){
+        $this->middleware('auth:api' , [
+           'except' => [
+            'index',
+            'store'
+           ]
+           ]);
+   }
+
+
 
 public function showMenuItems($restaurant_id)
 {
@@ -39,7 +49,7 @@ public function updateMenuItem(Request $request, $restaurant_id, $meal_id)
     $meal = Meal::find($meal_id);
     
     if (!$meal) {
-        return redirect()->route('meals.index')->with('error', 'Meal not found.');
+        return response()->json(['error' => 'Meal not found.'], 404);
     }
 
     // Update the meal's attributes based on the request data
@@ -53,8 +63,7 @@ public function updateMenuItem(Request $request, $restaurant_id, $meal_id)
     // Save the updated meal
     $meal->save();
 
-    return redirect()->route('meals.index', ['restaurantId' => $restaurant_id])->with('success', 'Meal updated successfully.');
-
+    return response()->json(['success' => 'Meal updated successfully.'], 200);
 }
 
 
@@ -78,12 +87,13 @@ public function edit($restaurant_id, $meal_id)
 
 
 //dah hy show el meals kollaha
-public function index($restaurantId)
+public function index(Request $request, $restaurantId)
 {
     $meals = Meal::where('restaurant_id', $restaurantId)->get();
 
-    return view('meals.index', ['meals' => $meals, 'restaurantId' => $restaurantId]);
+    return response()->json(['meals' => $meals, 'restaurantId' => $restaurantId], 200);
 }
+
 
 
 //howa da el add meal
@@ -97,7 +107,7 @@ public function store(Request $request)
         'M_price' => 'required|numeric',
         'L_price' => 'required|numeric',
         'rating' => 'required|string',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif', 
     ]);
 
     // Handle the image upload and meal creation
@@ -119,12 +129,10 @@ public function store(Request $request)
         // Save the meal record to the database
         $meal->save();
 
-        return("meal added succefully");
+        return response()->json(['message' => 'Meal added successfully'], 200);
     }
 
-    // Handle the case where the image is not provided or the meal creation fails
-
-    // Redirect or return an error response
+    return response()->json(['error' => 'Image not provided'], 400);
 }
 
 
@@ -137,17 +145,5 @@ public function create(Restaurant $restaurant)
 }
 
 
-
-    public function getMeal(){
-        //NOT IMPLEMENTED YET
-    }
-    public function addMeals(){
-        //NOT IMPLEMENTED YET
-        
-    }
-    public function deleteMeal(){
-        //NOT IMPLEMENTED YET
-        
-    }
     
 }

@@ -37,13 +37,11 @@ Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middl
 
 Route::post('/restaurant/store', [RestaurantController::class, 'store'])->middleware(['auth', 'admin'])->name('restaurant.store');
 
-Route::get('/restaurant/edit/{id}', [RestaurantController::class, 'edit'])->middleware(['auth', 'admin'])->name('restaurant.edit');
+Route::get('/restaurant/edit/{id}', [RestaurantController::class, 'edit']);
+
+// Route::put('/restaurant/update/{id}', RestaurantController::class, 'updatee')->middleware('auth');
 
 
-
-
-
-// Route::put('/restaurant/update/{id}', RestaurantController::class, 'update')->middleware('auth');
 
 //get menu of restaurant with all its meals
 // Route::get('/restaurants/{restaurant_id}/menu', [MealsController::class, 'showMenuItems'])->middleware('auth')->name('restaurant.menu_items');

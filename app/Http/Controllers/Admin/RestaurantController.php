@@ -17,9 +17,11 @@ class RestaurantController extends Controller
         $this->middleware('auth:api' , [
            'except' => [
                'index', 
-            // 'search',
-            // 'showSearchForm'
-            'store'
+            'search',
+            'showSearchForm',
+            'store',
+            'edit',
+            'update'
            ]
            ]);
    }
@@ -107,23 +109,32 @@ class RestaurantController extends Controller
     {
         // Retrieve the search criteria from the JSON request
         $requestData = $request->json()->all();
-        $location = $requestData['location'];
-    
+        
         // Build the query to search for restaurants
         $query = Restaurant::query();
-    
-        if ($location) {
+        
+        // Check if a location is provided
+        if (isset($requestData['location'])) {
+            $location = $requestData['location'];
             $query->where('location', 'like', '%' . $location . '%');
         }
     
-        // Add more query conditions for other criteria (e.g., price range, ratings)
+        // Add more conditions for other criteria as needed
+        // For example, if 'minRating' is provided:
+        if (isset($requestData['minRating'])) {
+            $minRating = $requestData['minRating'];
+            $query->where('rating', '>=', $minRating);
+        }
     
+        // Continue adding conditions for other criteria
+        
         // Execute the query
         $restaurants = $query->get();
     
         // Return the search results as JSON
         return response()->json(['restaurants' => $restaurants]);
     }
+    
     
 
 public function showSearchForm()
