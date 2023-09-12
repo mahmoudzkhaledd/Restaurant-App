@@ -99,7 +99,9 @@ Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restau
 
 //place orders
 Route::get('/restaurants/{restaurant_id}/menu',[OrderController::class, 'showMenu'])->name('menu.show');
+// Route::post('/restaurants/{restaurant_id}/menu/f', [OrderController::class, 'addToCart'])->name('menu.add-to-cart');
 Route::post('/restaurants/{restaurant_id}/menu', [OrderController::class, 'addToCart'])->name('menu.add-to-cart');
+
 Route::get('/cart', [OrderController::class, 'showCart'])->name('cart.show');
 Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
 Route::post('/cart/add/{meal}', [OrderController::class, 'addToCart'])->name('cart.add');

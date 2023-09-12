@@ -4,7 +4,7 @@
 <div class="container" style="background-color: aqua">
     <h1>Your Shopping Cart</h1>
 
-    @if ($cartItems->isEmpty())
+    @if ($cartItem->isEmpty())
     <p>Your cart is empty.</p>
     @else
     <table class="table">
@@ -19,18 +19,20 @@
         <tbody>
             @foreach ($cartItems as $cartItem)
             <tr>
-                <td>{{ $cartItem->menuItem->name }}</td>
+                <td>{{ $cartItem->meal_items }}</td>
                 <td>{{ $cartItem->quantity }}</td>
                 <td>${{ $cartItem->menuItem->S_price }}</td>
                 <td>${{ $cartItem->quantity * $cartItem->menuItem->S_price }}</td>
             </tr>
-            @endforeach
+        @endforeach
+        
+        
         </tbody>
     </table>
-
+{{-- 
     <div class="text-right">
         <h4>Total: ${{ $cartTotal }}</h4>
-    </div>
+    </div> --}}
 
     <form method="POST" action="{{ route('cart.checkout') }}">
         @csrf

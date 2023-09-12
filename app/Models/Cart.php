@@ -9,6 +9,19 @@ class Cart extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id', 
+        'meal_items',
+
+    ];
+  
+
+    
+    public function meal()
+    {
+        return $this->belongsTo(Meal::class, 'meal_items');
+    }
+    
     public function meals()
     {
         return $this->hasMany(Meal::class);

@@ -19,15 +19,13 @@
             <img src="{{ asset('storage/' . $meal->image) }}" alt="{{ $meal->name }}" class="img-fluid mt-3" style="max-height: 200px;">
             
                 <!-- Inside your menu.blade.php -->
-            <form method="POST" action="{{ route('cart.add', ['restaurant' => $restaurantId, 'meal' => $meal->id]) }}">
-                @csrf
-                <input type="hidden" name="menu_item_id" value="{{ $meal->id }}">
-                <div class="form-group">
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
-                </div>
-                <button type="submit" class="btn btn-primary">Add to Cart</button>
-            </form>
+                <form action="{{ route('menu.add-to-cart', ['restaurant_id' => $restaurantId]) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $meal->id }}">
+                    <input type="number" name="quantity" value="1" min="1">
+                    <button type="submit">Add to Cart</button>
+                </form>
+                
 
         </li>
         <br>
