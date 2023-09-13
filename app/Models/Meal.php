@@ -22,4 +22,9 @@ class Meal extends Model
         'description',
     ];
     
+    public function carts()
+{
+    return $this->belongsToMany(Cart::class);
+}
+
 }

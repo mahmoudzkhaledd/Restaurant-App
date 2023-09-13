@@ -13,8 +13,16 @@ class Cart extends Model
         'user_id', 
         'meal_items',
 
+
     ];
-  
+    protected $casts = [
+        'meal_items' => 'json'
+    ];
+    
+public function meals()
+{
+    return $this->belongsToMany(Meal::class);
+}
 
     
     public function meal()
@@ -22,8 +30,5 @@ class Cart extends Model
         return $this->belongsTo(Meal::class, 'meal_items');
     }
     
-    public function meals()
-    {
-        return $this->hasMany(Meal::class);
-    }
+   
 }

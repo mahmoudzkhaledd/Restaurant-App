@@ -36,34 +36,38 @@ public function addToCart(Request $request, $restaurant_id)
         return redirect()->back()->with('error', 'Menu item not found.');
     }
 
-    $cart = Cart::updateOrCreate(
-        [
-            'user_id' => auth()->user()->id,
-            'meal_items' => $menuItem->name,
-        ],
-        [
-            'quantity' => $request->input('quantity'),
-        ]
-    );
+    $cart = Cart::where('user_id', auth()->user()->id)->first(); // Get the user's cart
 
-    dd($cart);
+    if (!$cart) {
+        $cart = new Cart(); // Create a new cart if none exists for the user
+        $cart->user_id = auth()->user()->id;
+        $cart->save();
+    }
+
+    $cart->meals()->attach($menuItem->id, ['quantity' => $request->input('quantity')]);
 
     return redirect()->route('cart.show')->with('success', 'Item added to cart.');
 }
 
 
+public function showCart()
+{
+    // Retrieve and display the user's cart items
+    $cartItems = Cart::where('user_id', auth()->user()->id)->with('meals')->first();
 
-
-    
-
-
-    public function showCart()
-    {
-        // $cartItems = Cart::where('user_id', auth()->user()->id)->with('menuItem')->get();
-        $cartItems = Cart::where('user_id', auth()->user()->id)->with('meal')->get();
-
-        return view('cart', ['cartItem' => $cartItems]);
+    if (!$cartItems) {
+        $cartItems = [];
+    } else {
+        $cartItems = $cartItems->meals;
     }
+
+    // $cartTotal = $cartItems->sum(function ($cartItem) {
+    //     return $cartItem->menuItem->S_price * $cartItem->quantity;
+    // });
+
+    return view('cart', ['cartItems' => $cartItems]);
+}
+
 
     public function checkout(Request $request)
     {
