@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\MealsController;
 use App\Http\Controllers\Admin\RestaurantController;
+use App\Http\Controllers\MealsRatingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RestaurantRatingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -113,5 +114,26 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+// Ratings & Reviews
+// 1. For a Restaurant
+Route::get('/restaurants/{restaurant_id}/rate', [RestaurantRatingController::class, 'display'])
+->middleware(['auth'])
+->name('restaurant-rating.display');
+
+Route::post('/restaurants/{restaurant_id}/add-review', [RestaurantRatingController::class, 'addReview'])
+->middleware(['auth'])
+->name('add-restaurant-review');
+
+
+// 2. For a Meal
+Route::get('/restaurants/{restaurant_id}/menu/{meal_id}/rate', [MealsRatingController::class, 'display'])
+->middleware(['auth'])
+->name('meal-rating.display');
+
+Route::post('/restaurants/{restaurant_id}/menu/{meal_id}/add-review', [MealsRatingController::class, 'addReview'])
+->middleware(['auth'])
+->name('add-meal-review');
 
 require __DIR__.'/auth.php';

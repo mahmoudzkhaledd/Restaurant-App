@@ -19,11 +19,11 @@ public function showMenuItems($restaurant_id)
     if($restaurant_id){
         $restaurant = Restaurant::find($restaurant_id);
         $menuItems = $restaurant->meals;
-    
+
         // Pass the menu items to a view
         return view('restaurant.menu_items', compact('restaurant', 'menuItems'));
     }
-    
+
     else{
         return text("there is no restaurant");
     }
@@ -37,7 +37,7 @@ public function updateMenuItem(Request $request, $restaurant_id, $meal_id)
 
     // Example update logic:
     $meal = Meal::find($meal_id);
-    
+
     if (!$meal) {
         return redirect()->route('meals.index')->with('error', 'Meal not found.');
     }
@@ -143,11 +143,11 @@ public function create(Restaurant $restaurant)
     }
     public function addMeals(){
         //NOT IMPLEMENTED YET
-        
+
     }
     public function deleteMeal(){
         //NOT IMPLEMENTED YET
-        
+
     }
-    
+
 }
