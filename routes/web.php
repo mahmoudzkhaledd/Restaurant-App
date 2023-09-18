@@ -126,6 +126,11 @@ Route::post('/restaurants/{restaurant_id}/add-review', [RestaurantRatingControll
 ->middleware(['auth'])
 ->name('add-restaurant-review');
 
+Route::get('/restaurants/{restaurant_id}/avarage-rating', function ($restaurant_id) {
+    $controller = new RestaurantRatingController();
+    return $controller->getAvgRating($restaurant_id);
+});
+
 
 // 2. For a Meal
 Route::get('/restaurants/{restaurant_id}/menu/{meal_id}/rate', [MealsRatingController::class, 'display'])
@@ -135,5 +140,10 @@ Route::get('/restaurants/{restaurant_id}/menu/{meal_id}/rate', [MealsRatingContr
 Route::post('/restaurants/{restaurant_id}/menu/{meal_id}/add-review', [MealsRatingController::class, 'addReview'])
 ->middleware(['auth'])
 ->name('add-meal-review');
+
+Route::get('/restaurants/{restaurant_id}/menu/{meal_id}/avarage-rating', function ($restaurant_id , $meal_id) {
+    $controller = new MealsRatingController();
+    return $controller->getAvgRating($meal_id);
+});
 
 require __DIR__.'/auth.php';
