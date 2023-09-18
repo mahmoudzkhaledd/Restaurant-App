@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MealsRating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MealsRatingController extends Controller
 {
@@ -24,4 +25,10 @@ class MealsRatingController extends Controller
 
         return("Rating added successfully!");
     }
+
+    public function getAvgRating($meal_id)
+    {
+        return DB::table('meals_rating')->where('meal_id', $meal_id) ->avg('rating');
+    }
+
 }

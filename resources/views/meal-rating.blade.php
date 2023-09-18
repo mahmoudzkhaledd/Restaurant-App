@@ -1,3 +1,8 @@
+@php
+    $mealRatingController = new \App\Http\Controllers\MealsRatingController();
+    $averageRating = $mealRatingController->getAvgRating(request()->route('meal_id'));
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
@@ -5,6 +10,8 @@
         <strong>
             Meal Rating
         </strong>
+
+        Average Rating: {{ $averageRating }}
 
         <br>
         <br>

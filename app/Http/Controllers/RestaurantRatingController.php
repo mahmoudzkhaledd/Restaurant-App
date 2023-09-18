@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\restaurant_rating;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class RestaurantRatingController extends Controller
 {
@@ -24,5 +25,10 @@ class RestaurantRatingController extends Controller
         $rating->save();
 
         return("Rating added successfully!");
+    }
+
+    public function getAvgRating($restaurant_id)
+    {
+        return DB::table('restaurant_ratings')->where('restaurant_id', $restaurant_id) ->avg('rating');
     }
 }
