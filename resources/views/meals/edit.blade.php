@@ -2,19 +2,16 @@
     @csrf
     @method('PUT')
 
-    <!-- Meal Name -->
     <div class="form-group">
         <label for="name">Meal Name</label>
         <input type="text" name="name" id="name" class="form-control" value="{{ $meal->name }}" required>
     </div>
 
-    <!-- Description -->
     <div class="form-group">
         <label for="description">Description</label>
         <textarea name="description" id="description" class="form-control" required>{{ $meal->description }}</textarea>
     </div>
 
-    <!-- Price -->
     <div class="form-group">
         <label for="S_price">Price (S)</label>
         <input type="text" name="S_price" id="S_price" class="form-control" value="{{ $meal->S_price }}" required>
@@ -30,7 +27,6 @@
         <input type="text" name="L_price" id="L_price" class="form-control" value="{{ $meal->L_price }}" required>
     </div>
 
-    <!-- Rating -->
     <div class="form-group">
         <label for="rating">Rating</label>
         <input type="text" name="rating" id="rating" class="form-control" value="{{ $meal->rating }}" required>

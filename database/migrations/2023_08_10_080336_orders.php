@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('restaurant_id')->constrained('restaurants');
-            $table->unsignedBigInteger('cart_id'); // Foreign key linking to carts
-            $table->enum('status', ['pending', 'completed'])->default('pending'); // Order status
+            $table->unsignedBigInteger('cart_id'); 
+            $table->enum('status', ['pending', 'completed'])->default('pending');
             $table->decimal('total_price', 8, 2);
             $table->timestamps();
         });

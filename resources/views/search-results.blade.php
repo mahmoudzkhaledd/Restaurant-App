@@ -12,7 +12,6 @@
             @foreach ($results as $restaurant)
                 <li>{{ $restaurant->name }} - {{ $restaurant->location }} - {{ $restaurant->cuisine_type }}</li>
                 <li>Ratings: {{ $restaurant->rating }} stars and above</li>
-                <!-- Add more restaurant details here as needed -->
             @endforeach
         </ul>
     @endif

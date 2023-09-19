@@ -16,12 +16,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('location');
-            $table->string('logo'); // Change this line to string type
+            $table->string('logo'); 
             $table->longText('description');
             $table->string('rating');
-            $table->string('contact_details'); // Corrected column name
+            $table->string('contact_details'); 
             $table->boolean('delivery')->default(false);
-            $table->string('cuisine_type'); // Corrected column name
+            $table->string('cuisine_type'); 
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -10,7 +10,6 @@ use Auth;
 
 class OrderController extends Controller
 {
-    // Protected routes with authentication middleware
     public function __construct()
     {
         $this->middleware('auth');
@@ -24,7 +23,6 @@ class OrderController extends Controller
 
     public function addToCart(Request $request, $restaurant_id)
     {
-        // Validate quantity input here if necessary
     
         $menuItem = Meal::find($request->input('id'));
         // dd($menuItem);
@@ -32,7 +30,6 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Menu item not found.');
         }
     
-        // Add the menu item to the user's cart
         $cart = Cart::updateOrCreate(
             [
                 'user_id' => auth()->user()->id,
@@ -50,20 +47,13 @@ class OrderController extends Controller
 
     public function showCart()
     {
-        // Retrieve and display the user's cart items
         $cartItems = Cart::where('user_id', auth()->user()->id)->with('menuItem')->get();
         return view('cart', ['cartItems' => $cartItems]);
     }
 
     public function checkout(Request $request)
     {
-        // Validate and process the checkout, handle payment, and store order details
-        // Use a payment gateway library (e.g., Stripe, PayPal) to handle payments
-
-        // After successful payment and order placement, clear the user's cart
         Cart::where('user_id', auth()->user()->id)->delete();
-
-        // You can also send an email confirmation to the user
 
         return redirect()->route('cart.show')->with('success', 'Order placed successfully.');
     }

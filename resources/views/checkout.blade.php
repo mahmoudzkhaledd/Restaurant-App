@@ -8,7 +8,6 @@
             <form method="POST" action="{{ route('cart.place-order') }}">
                 @csrf
 
-                <!-- Add checkout form fields here, e.g., shipping address, payment info -->
 
                 <button type="submit" class="btn btn-primary">Place Order</button>
             </form>
