@@ -95,6 +95,38 @@ class RestaurantController extends Controller
     //     // Redirect with a success message
     //     return redirect()->route('restaurant.profile')->with('success', 'Profile updated successfully');
     // }
+
+    public function update(Request $request, $id)
+{
+    $restaurant = Restaurant::find(auth()->user()->id);
+
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'location' => 'required|string|max:255',
+        'logo' => 'required|string|max:255', 
+        'description' => 'required|string',
+        'rating' => 'required|string|max:255',
+        'contact_details' => 'required|string|max:255', 
+        'delivery' => 'required|boolean',
+        'cuisine_type' => 'required|string|max:255', 
+        'email' => 'required|string|email|unique:restaurants,email,' . $restaurant->id,
+    ]);
+
+    $restaurant->name = $request->input('name');
+    $restaurant->location = $request->input('location');
+    $restaurant->logo = $request->input('logo'); 
+    $restaurant->description = $request->input('description');
+    $restaurant->rating = $request->input('rating');
+    $restaurant->contact_details = $request->input('contact_details'); 
+    $restaurant->delivery = $request->input('delivery');
+    $restaurant->cuisine_type = $request->input('cuisine_type'); 
+    $restaurant->email = $request->input('email');
+    
+    $restaurant->save();
+
+    return response()->json(['message' => 'Profile updated successfully'], 200);
+}
+
     
     public function search(Request $request)
     {

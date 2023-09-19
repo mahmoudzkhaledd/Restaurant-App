@@ -6,7 +6,11 @@ use App\Models\Cart;
 use App\Models\Meal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\CartMeal;
 use Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class OrderController extends Controller
 {
@@ -29,12 +33,13 @@ class OrderController extends Controller
     return view('meals.index', ['meals' => $meals, 'restaurantId' => $restaurantId]);
 }
 
+
 public function addToCart(Request $request, $restaurant_id)
 {
     $menuItem = Meal::find($request->input('id'));
 
     if (!$menuItem) {
-        return redirect()->back()->with('error', 'Menu item not found.');
+        return response()->json(['error' => 'Menu item not found.'], 404);
     }
 
     $cart = Cart::where('user_id', auth()->user()->id)->first(); 
@@ -47,9 +52,12 @@ public function addToCart(Request $request, $restaurant_id)
 
     $cart->meals()->attach($menuItem->id, ['quantity' => $request->input('quantity')]);
 
-    return redirect()->route('cart.show')->with('success', 'Item added to cart.');
+    return response()->json(['message' => 'Item added to cart.'], 200);
 }
+
+
     
+
 public function addToOrder(Request $request, $restaurant_id)
 {
     $menuItem = Meal::find($request->input('id'));
@@ -87,27 +95,21 @@ public function showOrder()
     return view('order', ['orderItems' => $orderItems]);
 }
 
-
 public function showCart()
 {
     $user_id = auth()->user()->id;
     $cartItems = Cart::where('user_id', $user_id)->with('meals')->first();
 
-
-    // $cartItems = Cart::where('user_id', $user_id)->with('menuItem')->get();
-
     if (!$cartItems) {
-        $cartItems = [];
-    } else {
-        $cartItems = $cartItems->meals;
+        return response()->json(['message' => 'Cart is empty.'], 200);
     }
 
-    // $cartTotal = $cartItems->sum(function ($cartItem) {
-    //     return $cartItem->menuItem->S_price * $cartItem->quantity;
-    // });
+    $cartItems = $cartItems->meals;
 
-    return view('cart', ['cartItems' => $cartItems]);
+    return response()->json(['cartItems' => $cartItems], 200);
 }
+
+
 public function showOrderHistory()
 {
     $user_id = auth()->user()->id;
@@ -119,8 +121,10 @@ public function showOrderHistory()
         ->select('meals.*', 'cart_meal.status', 'cart_meal.created_at as order_time')
         ->get();
 
-    return view('history', ['orders' => $orders]);
+    return response()->json(['orders' => $orders]);
 }
+
+
 
 
 public function orderTracking()
@@ -136,10 +140,8 @@ public function orderTracking()
         $pendingOrders = $pendingOrders->merge($orders);
     }
 
-    // Calculate time remaining for each order in progress
     foreach ($pendingOrders as $order) {
         if ($order->pivot->created_at) {
-            // Calculate the time remaining until one hour from order creation(estimated en koll order gdeed ya5od 1 hour pending then accepted msln)
             $createdAt = $order->pivot->created_at;
             $oneHourLater = $createdAt->addHours(1);
             $now = now();
@@ -149,9 +151,9 @@ public function orderTracking()
         }
     }
     
-
-    return view('tracking', ['pendingOrders' => $pendingOrders]);
+    return response()->json(['pendingOrders' => $pendingOrders]);
 }
+
 
 
     public function checkout(Request $request)

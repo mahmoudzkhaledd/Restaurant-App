@@ -17,7 +17,8 @@ class MealsController extends Controller
         $this->middleware('auth:api' , [
            'except' => [
             'index',
-            'store'
+            'store',
+            'updateMenuItem'
            ]
            ]);
    }
@@ -30,7 +31,6 @@ public function showMenuItems($restaurant_id)
         $restaurant = Restaurant::find($restaurant_id);
         $menuItems = $restaurant->meals;
     
-        // Pass the menu items to a view
         return view('restaurant.menu_items', compact('restaurant', 'menuItems'));
     }
     
@@ -56,7 +56,6 @@ public function updateMenuItem(Request $request, $restaurant_id, $meal_id)
     $meal->L_price = $request->input('L_price');
     $meal->rating = $request->input('rating');
 
-    // Save the updated meal
     $meal->save();
 
     return response()->json(['success' => 'Meal updated successfully.'], 200);
@@ -78,7 +77,6 @@ public function edit($restaurant_id, $meal_id)
 
 
 
-//dah hy show el meals kollaha
 public function index(Request $request, $restaurantId)
 {
     $meals = Meal::where('restaurant_id', $restaurantId)->get();
@@ -123,7 +121,6 @@ public function store(Request $request)
 }
 
 
-//da el add meal
 public function create(Restaurant $restaurant)
 {
     $restaurantId = $restaurant->id; 

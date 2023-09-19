@@ -85,6 +85,29 @@ Route::get('/restaurants/{restaurant}/meals/create', [MealsController::class, 'c
     ->name('meals.create');
 
 
+Route::get('/cart', [OrderController::class, 'showCart'])->middleware('auth')->name('cart.show');
+Route::post('/cart/add/{meal}', [OrderController::class, 'addToCart'])->name('cart.add');
+
+
+
+
+
+
+
+
+
+
+
+Route::post('/cart/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
+Route::get('/orders/history', [OrderController::class, 'showOrderHistory'])->middleware('auth')->name('orders.history');
+Route::get('/orders/{order_id}/tracking', [OrderController::class, 'orderTracking'])->middleware('auth')->name('orders.tracking');
+
+
+
+
+
+
+
 
 //searching era
 //gets all restaurants

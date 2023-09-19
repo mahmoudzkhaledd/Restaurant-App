@@ -13,4 +13,17 @@ class Order extends Model
     {
         return $this->belongsTo(Cart::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
+    public function meals()
+    {
+        return $this->belongsToMany(Meal::class)->withPivot('quantity');
+    }
 }

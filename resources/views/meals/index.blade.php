@@ -18,7 +18,6 @@
             <p>Price (L): ${{ $meal->L_price }}</p>
             <img src="{{ asset('storage/' . $meal->image) }}" alt="{{ $meal->name }}" class="img-fluid mt-3" style="max-height: 200px;">
             
-                <!-- Inside your menu.blade.php -->
             <form method="POST" action="{{ route('cart.add', ['restaurant' => $restaurantId, 'meal' => $meal->id]) }}">
                 @csrf
                 <input type="hidden" name="menu_item_id" value="{{ $meal->id }}">

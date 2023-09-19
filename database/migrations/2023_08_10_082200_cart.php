@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Foreign key linking to users
-            $table->json('meal_items')->nullable(); // JSON field to hold meal IDs and names
+            $table->unsignedBigInteger('user_id'); 
+            $table->json('meal_items')->nullable(); 
             $table->timestamps();
         });
     }
