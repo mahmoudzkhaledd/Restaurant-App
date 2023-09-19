@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\MealsRatingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RestaurantRatingController;
+use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -145,5 +147,31 @@ Route::get('/restaurants/{restaurant_id}/menu/{meal_id}/avarage-rating', functio
     $controller = new MealsRatingController();
     return $controller->getAvgRating($meal_id);
 });
+
+
+
+// Table Reservation
+// Adding a Table
+Route::get('/restaurants/{restaurant_id}/add-table', [TableController::class, 'create'])
+->middleware(['auth', 'admin'])
+->name('table.add');
+
+Route::post('/restaurants/{restaurant_id}/store-table', [TableController::class, 'store'])
+->middleware(['auth', 'admin'])
+->name('table.store');
+
+
+// Making a Reservation
+Route::get('/restaurants/{restaurant_id}/reservation', [ReservationController::class, 'create'])
+->middleware(['auth'])
+->name('reservation');
+
+Route::post('/restaurants/{restaurant_id}/reservation/tables', [ReservationController::class, 'to_tables'])
+->middleware(['auth'])
+->name('choose.table');
+
+Route::post('/restaurants/{restaurant_id}/reservation.saved', [ReservationController::class, 'store'])
+->middleware(['auth'])
+->name('reservation.add');
 
 require __DIR__.'/auth.php';
