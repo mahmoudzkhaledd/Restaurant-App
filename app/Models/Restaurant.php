@@ -30,5 +30,4 @@ class Restaurant extends Model
 }
 
 
-    // Add any additional model logic or relationships here
 }

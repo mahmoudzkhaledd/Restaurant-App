@@ -21,5 +21,8 @@ class Meal extends Model
         'image',
         'description',
     ];
-    
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class);
+    }   
 }
