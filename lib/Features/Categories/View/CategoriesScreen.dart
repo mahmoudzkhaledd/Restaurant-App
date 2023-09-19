@@ -10,6 +10,8 @@ class CategoriesScreen extends StatelessWidget {
     Category(name: "برجر", photoUrl: "https://freesvg.org/img/Gerald_G_Fast_Food_Lunch_Dinner_(FF_Menu)_6.png"),
     Category(name: "بيتزا", photoUrl: "https://freesvg.org/img/1548611293.png",),
     Category(name: "دجاج", photoUrl: "https://freesvg.org/img/FriedChicken.png",),
+    Category(name: "مشروبات", photoUrl: "https://uxwing.com/wp-content/themes/uxwing/download/food-and-drinks/glass-drinks-color-icon.png",),
+    Category(name: "ايس كريم", photoUrl: "https://freesvg.org/img/1545396741.png",),
   ];
 
   @override
